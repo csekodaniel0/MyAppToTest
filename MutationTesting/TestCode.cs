@@ -2,6 +2,7 @@
 using NUnit;
 using NUnit.Framework;
 using MyAppToTest;
+using Moq;
 
 namespace MutationTesting
 {
@@ -10,63 +11,111 @@ namespace MutationTesting
         [Test]
         public void Kor_Tobb_Test()
         {
+            // Arrange
             var kor = new BusinessLogic();
-
-            var tenyleges = kor.korellenorzes(19);
-
+            // Act
+            var tenyleges = kor.AgeCheck(19);
+            // Assert
             NUnit.Framework.Assert.AreEqual("Nagykorú", tenyleges);
         }
 
         [Test]
         public void Kor_Kevesebb_Test()
         {
+            // Arrange
             var kor = new BusinessLogic();
-
-            var tenyleges = kor.korellenorzes(17);
-
+            // Act
+            var tenyleges = kor.AgeCheck(17);
+            // Assert
             NUnit.Framework.Assert.AreEqual("Kiskorú", tenyleges);
         }
 
         [Test]
         public void Kor_Egyenlo_Test()
         {
+            // Arrange
             var kor = new BusinessLogic();
-
-            var tenyleges = kor.korellenorzes(18);
-
+            // Act
+            var tenyleges = kor.AgeCheck(18);
+            // Assert
             NUnit.Framework.Assert.AreEqual("Nagykorú", tenyleges);
         }
 
         [Test]
         
-        public void vegrehajtasFail()
+        public void ActionFail()
         {
             // Arrange
-            var feladat= new BusinessLogic();
+            var task= new BusinessLogic();
 
             // Act
-            var vegrehajtasEredmeny = feladat.vegrehajtas(false);
+            var ActionStatus = task.Perform(false);
 
             // Assert
-            NUnit.Framework.Assert.AreEqual("FAIL", vegrehajtasEredmeny);
+            NUnit.Framework.Assert.AreEqual("HIBA", ActionStatus);
 
         }
 
         [Test]
 
-        public void vegrehajtasOK()
+        public void ActionOK()
         {
             // Arrange
-            var feladat = new BusinessLogic();
+            var task = new BusinessLogic();
 
             // Act
-            var vegrehajtasEredmeny = feladat.vegrehajtas(true);
+            var ActionStatus = task.Perform(true);
 
             // Assert
-            NUnit.Framework.Assert.AreEqual("OK", vegrehajtasEredmeny);
+            NUnit.Framework.Assert.AreEqual("OK", ActionStatus);
 
         }
+        [Test]
+        public void MangerTest()
+        {
+            // Arrange
+            var item = new BusinessLogic();
+            // Assert
+            Assert.AreEqual(item.Manager.Accounts.Count, 0);
+        }
 
+        [Test,
+            TestCase("password", false),
+            TestCase("Passw0rd1*", true)
+        ]
+        public void TestValidatePassword(string password, bool expectedResult)
+        {
+            // Arrange
+            var bl = new BusinessLogic();
+
+            // Act
+            var actualResult = bl.ValidatePassword(password);
+
+            // Assert
+            NUnit.Framework.Assert.AreEqual(expectedResult, actualResult);
+        }
+
+
+        
+
+
+
+        //[Test]
+
+        //public void vegFeladatCalled()
+        //{ 
+        //    var feladat = new BusinessLogic();
+
+
+        //    var mock = new Mock<BusinessLogic>();
+        //    mock.Setup(p => p.vegrehajtas(true)).Returns("OK");
+        //    var sut = new BusinessLogic(mock.Object);
+
+
+        //    mock.Verify(sut =>sut.vegrehajtandoFeladat(), Times.Once);
+
+
+        //}
 
     }
 }
