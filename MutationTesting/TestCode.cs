@@ -37,8 +37,35 @@ namespace MutationTesting
             NUnit.Framework.Assert.AreEqual("Nagykorú", tenyleges);
         }
 
+        [Test]
+        
+        public void vegrehajtasFail()
+        {
+            // Arrange
+            var feladat= new BusinessLogic();
 
+            // Act
+            var vegrehajtasEredmeny = feladat.vegrehajtas(false);
 
+            // Assert
+            NUnit.Framework.Assert.AreEqual("FAIL", vegrehajtasEredmeny);
+
+        }
+
+        [Test]
+
+        public void vegrehajtasOK()
+        {
+            // Arrange
+            var feladat = new BusinessLogic();
+
+            // Act
+            var vegrehajtasEredmeny = feladat.vegrehajtas(true);
+
+            // Assert
+            NUnit.Framework.Assert.AreEqual("OK", vegrehajtasEredmeny);
+
+        }
 
 
     }
