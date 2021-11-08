@@ -37,23 +37,24 @@ namespace MyAppToTest
 
             throw new Exception("Jelszó nem megfelelő");
         }
-        public string AgeCheck(int age) => age >= 18
-                ? "Nagykorú"
-                : "Kiskorú";
-
         public string Perform(bool b)
         {
             if (b)
             {
-                CrucialBusinessAction();
+                Manager.CrucialBusinessAction();
                 return "OK";
             }
 
             return "HIBA";
         }
-        public void CrucialBusinessAction() {}
+        
+        public string AgeCheck(int age) => age >= 18
+                ? "Nagykorú"
+                : "Kiskorú";
 
-       
+     
+
+
 
         public bool ValidatePassword(string password)
         {

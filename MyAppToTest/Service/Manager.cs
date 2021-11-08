@@ -26,5 +26,9 @@ namespace MyAppToTest
 
             return account;
         }
+        public void CrucialBusinessAction()
+        {
+
+        }
     }
 }

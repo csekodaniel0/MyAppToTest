@@ -108,6 +108,7 @@ namespace MutationTesting
 
         public void CreateAccTest(string name, string password, int age, string agestatus)
         {
+            // Arrange
             var accServiceMock = new Mock<IManager>(MockBehavior.Strict);
             accServiceMock
                 .Setup(m => m.CreateAccount(It.IsAny<Account>()))
@@ -115,12 +116,31 @@ namespace MutationTesting
             var bLogic = new BusinessLogic();
             bLogic.Manager = accServiceMock.Object;
 
+            // Act
             var actResult = bLogic.Register(name, password, age, agestatus);
 
+            // Assert
             Assert.AreEqual(name, actResult.Name);
             Assert.AreEqual(password, actResult.Password);
             Assert.AreEqual(age, actResult.Age);
             Assert.AreEqual(agestatus, actResult.AgeStatus);
+            accServiceMock.Verify(m => m.CreateAccount(actResult), Times.Once);
+        }
+        [Test]
+        public void CBusinessActionCall()
+        {
+            // Arrange
+            var mock = new Mock<IManager>(MockBehavior.Strict);
+            mock.Setup(p => p.CrucialBusinessAction());
+            var bLogic = new BusinessLogic();
+            bLogic.Manager = mock.Object;
+
+            // Act
+            bLogic.Perform(true);
+
+            // Assert
+            mock.Verify(p => p.CrucialBusinessAction(), Times.Once);
+
         }
 
     }

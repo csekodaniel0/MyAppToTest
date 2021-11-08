@@ -12,5 +12,7 @@ namespace MyAppToTest
         List<Account> Accounts { get; }
 
         Account CreateAccount(Account account);
+        void CrucialBusinessAction();
+        
     }
 }
