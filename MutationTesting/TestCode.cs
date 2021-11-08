@@ -255,6 +255,34 @@ namespace MutationTesting
             // Assert
             Assert.AreEqual(actResult.Name,newName);
         }
-       
+
+        [Test,
+            TestCase(true, "Daniel",true), 
+            TestCase(false, "Bela", false)
+        ]
+
+        public void ModifyDecision(bool wantToModify, string newName, bool willPass )
+        {
+            // Arrange
+            Account acc = new Account();
+            acc.Name = "name";
+            acc.Age = 19;
+            acc.AgeStatus = "Nagykorú";
+            acc.Password = "Count94//";
+            
+            var modification = new BusinessLogic();     
+
+            // Act
+            var modifiedAccount = modification.NameModifier(acc,wantToModify, newName);
+
+            // Assert
+            if (willPass)
+            {
+                NUnit.Framework.Assert.AreEqual(newName, modifiedAccount.Name);
+            }
+            else NUnit.Framework.Assert.AreNotEqual(newName, modifiedAccount.Name);
+
+        }
+
     }
 }
