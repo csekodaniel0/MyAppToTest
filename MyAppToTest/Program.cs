@@ -6,7 +6,7 @@ namespace MyAppToTest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Ez csak egy console program...");
         }
     }
 }

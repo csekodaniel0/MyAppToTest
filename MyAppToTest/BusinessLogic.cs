@@ -11,5 +11,20 @@ namespace MyAppToTest
         public string korellenorzes(int kor) => kor >= 18
                 ? "Nagykorú"
                 : "Kiskorú";
+
+        public string vegrehajtas(bool b)
+        {
+            if (b)
+            {
+                vegrehajtandoFeladat();
+                return "OK";
+            }
+
+            return "FAIL";
+        }
+        public void vegrehajtandoFeladat() { }
     }
+
+
+    
 }
