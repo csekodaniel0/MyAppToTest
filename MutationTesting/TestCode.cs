@@ -194,20 +194,37 @@ namespace MutationTesting
             {
                 var actualResult = accountController.Register(name, password, age, agestatus);
                 Assert.Fail();
-
             }
             catch (Exception ex)        
             {
                 if (ex.Message== "Jelszó nem megfelelő")
                 {
                     Assert.Pass();      // got exception as expeted
-                }     
-                
+                }             
             }
 
             // Assert
-
         }
 
+        [Test,
+            TestCase("sd", false),
+            TestCase("Px6*edasd", true)
+        ]
+        public void ValidPasswordErrorTest(string password, bool shouldPass)
+        {
+            // Arrange
+            var accServiceMock = new Mock<IManager>(MockBehavior.Strict);
+            accServiceMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Returns<Account>(a => a);
+            var bLogic = new BusinessLogic();
+            bLogic.Manager = accServiceMock.Object;
+
+            // Act
+            var actResult = bLogic.ValidatePassword(password);
+
+            // Assert
+            Assert.AreEqual(actResult, shouldPass);
+        }
     }
 }
