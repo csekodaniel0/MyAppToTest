@@ -9,36 +9,36 @@ namespace MutationTesting
     class TestCode
     {
         [Test]
-        public void Kor_Tobb_Test()
+        public void Age_Greater_Test()
         {
             // Arrange
-            var kor = new BusinessLogic();
+            var age = new BusinessLogic();
             // Act
-            var tenyleges = kor.AgeCheck(19);
+            var actualAge = age.AgeCheck(19);
             // Assert
-            NUnit.Framework.Assert.AreEqual("Nagykorú", tenyleges);
+            NUnit.Framework.Assert.AreEqual("Nagykorú", actualAge);
         }
 
         [Test]
-        public void Kor_Kevesebb_Test()
+        public void Age_Less_Test()
         {
             // Arrange
-            var kor = new BusinessLogic();
+            var age = new BusinessLogic();
             // Act
-            var tenyleges = kor.AgeCheck(17);
+            var actualAge = age.AgeCheck(17);
             // Assert
-            NUnit.Framework.Assert.AreEqual("Kiskorú", tenyleges);
+            NUnit.Framework.Assert.AreEqual("Kiskorú", actualAge);
         }
 
         [Test]
-        public void Kor_Egyenlo_Test()
+        public void Age_Equal_Test()
         {
             // Arrange
-            var kor = new BusinessLogic();
+            var age = new BusinessLogic();
             // Act
-            var tenyleges = kor.AgeCheck(18);
+            var actualAge = age.AgeCheck(18);
             // Assert
-            NUnit.Framework.Assert.AreEqual("Nagykorú", tenyleges);
+            NUnit.Framework.Assert.AreEqual("Nagykorú", actualAge);
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace MutationTesting
         public void ActionFail()
         {
             // Arrange
-            var task= new BusinessLogic();
+            var task= new BusinessLogic();      // Crucial Business Action
 
             // Act
             var ActionStatus = task.Perform(false);
@@ -61,7 +61,7 @@ namespace MutationTesting
         public void ActionOK()
         {
             // Arrange
-            var task = new BusinessLogic();
+            var task = new BusinessLogic();     // Crucial Business Action
 
             // Act
             var ActionStatus = task.Perform(true);
@@ -74,7 +74,7 @@ namespace MutationTesting
         public void MangerTest()
         {
             // Arrange
-            var item = new BusinessLogic();
+            var item = new BusinessLogic();         //only Manager call check
             // Assert
             Assert.AreEqual(item.Manager.Accounts.Count, 0);
         }
