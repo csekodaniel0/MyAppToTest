@@ -96,26 +96,32 @@ namespace MutationTesting
         }
 
 
-        
 
 
 
-        //[Test]
 
-        //public void vegFeladatCalled()
-        //{ 
-        //    var feladat = new BusinessLogic();
+        [Test,
+            TestCase("Cseko","dani*1Gxx",18,"Nagykorú"),
+            TestCase("Cseko Daniel", "C3f*dadade", 1, "Kiskorú")
+            
+        ]
 
+        public void CreateAccTest(string name, string password, int age, string agestatus)
+        {
+            var accServiceMock = new Mock<IManager>(MockBehavior.Strict);
+            accServiceMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Returns<Account>(a => a);
+            var bLogic = new BusinessLogic();
+            bLogic.Manager = accServiceMock.Object;
 
-        //    var mock = new Mock<BusinessLogic>();
-        //    mock.Setup(p => p.vegrehajtas(true)).Returns("OK");
-        //    var sut = new BusinessLogic(mock.Object);
+            var actResult = bLogic.Register(name, password, age, agestatus);
 
-
-        //    mock.Verify(sut =>sut.vegrehajtandoFeladat(), Times.Once);
-
-
-        //}
+            Assert.AreEqual(name, actResult.Name);
+            Assert.AreEqual(password, actResult.Password);
+            Assert.AreEqual(age, actResult.Age);
+            Assert.AreEqual(agestatus, actResult.AgeStatus);
+        }
 
     }
 }
