@@ -147,7 +147,7 @@ namespace MutationTesting
             TestCase("Cseko Daniel","Px6*ffefsa",19,"Nagykorú")
         ]
 
-        public void TestRegAppnExTest(string name, string password, int age, string agestatus)
+        public void TestRegAppExTest(string name, string password, int age, string agestatus)
         {
                                     //Register no exception Test
             // Arrange
@@ -178,7 +178,7 @@ namespace MutationTesting
         [Test,
             TestCase("Cseko Daniel", "s", 19, "Nagykorú")
         ]
-        public void TestRegAppnExGeneralTest(string name, string password, int age, string agestatus)
+        public void TestRegAppExGeneralTest(string name, string password, int age, string agestatus)
         {
                                         //Register "Jelszó nem megfelelő" exception Test
             // Arrange
@@ -230,7 +230,31 @@ namespace MutationTesting
             Assert.AreEqual(actResult, shouldPass);
         }
 
+        [Test,
+            TestCase("ModifiedName")
+        ]
 
+        public void WantToModifyTest(string newName)
+        {
+            // Arrange
+            var acc = new Account();
+            acc.Name = "name";
+            acc.Age = 19;
+            acc.AgeStatus = "Nagykorú";
+            acc.Password = "Count94//";
+
+            var accServiceMock = new Mock<IManager>();
+            accServiceMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Returns<Account>(a => a);
+            var bLogic = new BusinessLogic();
+
+            // Act
+            Account actResult = bLogic.Manager.ModifyName(acc,newName);
+
+            // Assert
+            Assert.AreEqual(actResult.Name,newName);
+        }
        
     }
 }

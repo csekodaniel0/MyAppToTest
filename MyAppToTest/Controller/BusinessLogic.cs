@@ -52,7 +52,16 @@ namespace MyAppToTest
                 ? "Nagykorú"
                 : "Kiskorú";
 
-     
+        public Account NameModifier(Account acc, bool wantToModify, string newName)
+        {
+            
+            if (wantToModify)
+            {
+                var newAccount =Manager.ModifyName(acc,newName);
+                return newAccount;
+            }
+            return acc;
+        }
 
 
 

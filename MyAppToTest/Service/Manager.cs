@@ -30,5 +30,11 @@ namespace MyAppToTest
         {
 
         }
+        public Account ModifyName(Account acc ,string newName)
+        {
+            
+            acc.Name = newName;
+            return acc;
+        }
     }
 }
