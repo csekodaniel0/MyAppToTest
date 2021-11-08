@@ -144,13 +144,12 @@ namespace MutationTesting
         }
 
         [Test,
-            TestCase("Cseko Daniel","Px6*ffefsa",19,"Nagykorú"),
-            TestCase("Cseko Daniel", "s", 19, "Nagykorú")
+            TestCase("Cseko Daniel","Px6*ffefsa",19,"Nagykorú")
         ]
 
         public void TestRegAppnExTest(string name, string password, int age, string agestatus)
         {
-                                    //Register exception Test
+                                    //Register no exception Test
             // Arrange
             var accountServiceMock = new Mock<IManager>(MockBehavior.Strict);
             accountServiceMock
@@ -164,10 +163,45 @@ namespace MutationTesting
             {
                 var actualResult = accountController.Register(name, password,age, agestatus);
                 Assert.Fail();
+
             }
-            catch (Exception ex)        //Fail if zero exception in catch
+            catch (Exception ex)        
             {
                 Assert.IsInstanceOf<ApplicationException>(ex);
+                
+            }
+
+            // Assert
+
+        }
+
+        [Test,
+            TestCase("Cseko Daniel", "s", 19, "Nagykorú")
+        ]
+        public void TestRegAppnExGeneralTest(string name, string password, int age, string agestatus)
+        {
+                                        //Register "Jelszó nem megfelelő" exception Test
+            // Arrange
+            var accountServiceMock = new Mock<IManager>(MockBehavior.Strict);
+            accountServiceMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Throws<ApplicationException>();
+            var accountController = new BusinessLogic();
+            accountController.Manager = accountServiceMock.Object;
+
+            // Act
+            try
+            {
+                var actualResult = accountController.Register(name, password, age, agestatus);
+                Assert.Fail();
+
+            }
+            catch (Exception ex)        
+            {
+                if (ex.Message== "Jelszó nem megfelelő")
+                {
+                    Assert.Pass();      // got exception as expeted
+                }     
                 
             }
 
