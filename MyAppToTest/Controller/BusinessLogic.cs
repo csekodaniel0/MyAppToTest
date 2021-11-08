@@ -63,7 +63,9 @@ namespace MyAppToTest
 
             if (string.IsNullOrWhiteSpace(input))
             {
-                throw new Exception("Jelszó nem lehet üres");
+                Exception passZero = new Exception("Jelszó nem lehet üres");
+
+                throw passZero;
             }
 
             var hasNumber = new Regex(@"[0-9]+");

@@ -231,36 +231,6 @@ namespace MutationTesting
         }
 
 
-        [Test,
-            TestCase("")
-            
-        ]
-        public void ValidatePassEmpltyTest(string password)
-        {
-            
-            // Arrange
-            var accountServiceMock = new Mock<IManager>(MockBehavior.Strict);
-            accountServiceMock
-                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
-                .Throws<ApplicationException>();
-            var accountController = new BusinessLogic();
-            accountController.Manager = accountServiceMock.Object;
-
-            // Act
-            try
-            {
-                var actualResult = accountController.ValidatePassword(password);
-                Assert.Fail();
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message == "Jelszó nem lehet üres")
-                {
-                    Assert.Pass();      // got exception as expeted
-                }
-            }
-
-            // Assert
-        }
+       
     }
 }
