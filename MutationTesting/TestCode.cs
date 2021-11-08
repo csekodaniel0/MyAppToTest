@@ -207,7 +207,10 @@ namespace MutationTesting
         }
 
         [Test,
-            TestCase("sd", false),
+            TestCase("Px/dasde", false),
+            TestCase("Px5dasde", false),
+            TestCase("d*dasde", false),
+            TestCase("x5dasde", false),
             TestCase("Px6*edasd", true)
         ]
         public void ValidPasswordErrorTest(string password, bool shouldPass)
