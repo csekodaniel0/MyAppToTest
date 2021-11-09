@@ -296,27 +296,27 @@ namespace MutationTesting
             NUnit.Framework.Assert.AreEqual(10, addedOneToIt);
 
 
-         }
-        
-
-            [Test,
-            TestCase(5)
-        ]
-        public void ParityCallTest(int num)
-        {
-            // Arrange                                              
-            var mock = new Mock<IManager>();
-            mock.Setup(p => p.ParityChanger(num));
-            var bLogic = new BusinessLogic();
-            bLogic.Manager = mock.Object;
-
-            // Act
-            bLogic.ChangeParityDecision(num,true);
-
-            // Assert
-            mock.Verify(p => p.ParityChanger(num), Times.Once);
-
         }
+
+
+    //    [Test,
+    //    TestCase(5)
+    //]
+    //    public void ParityCallTest(int num)
+    //    {
+    //        // Arrange                                              
+    //        var mock = new Mock<IManager>();
+    //        mock.Setup(p => p.ParityChanger(num));
+    //        var bLogic = new BusinessLogic();
+    //        bLogic.Manager = mock.Object;
+
+    //        // Act
+    //        bLogic.ChangeParityDecision(num, false);                  //Simulated error for the test to give error (true) should be a good solution
+
+    //        // Assert
+    //        mock.Verify(p => p.ParityChanger(num), Times.Once);
+
+    //    }
 
         [Test,
             TestCase(8)
@@ -336,5 +336,6 @@ namespace MutationTesting
             mock.Verify(p => p.ParityChanger(num), Times.Never);
 
         }
-    }
+
+    } 
 }

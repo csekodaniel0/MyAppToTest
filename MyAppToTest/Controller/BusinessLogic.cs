@@ -65,9 +65,9 @@ namespace MyAppToTest
 
 
 
-        public bool ValidatePassword(string password)
+        public bool ValidatePassword(string input)
         {
-            var input = password;
+            
             
 
             if (string.IsNullOrWhiteSpace(input))
@@ -121,7 +121,9 @@ namespace MyAppToTest
             }
             return num;
         }
+        
 
+        
     }
 
 
