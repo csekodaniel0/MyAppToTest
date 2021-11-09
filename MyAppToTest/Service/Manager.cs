@@ -36,6 +36,10 @@ namespace MyAppToTest
             acc.Name = newName;
             return acc;
         }
-        
+        public int ParityChanger(int num)
+        {
+            return num + 1;
+        }
+
     }
 }

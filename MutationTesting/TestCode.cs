@@ -42,11 +42,11 @@ namespace MutationTesting
         }
 
         [Test]
-        
+
         public void ActionFail()
         {
             // Arrange
-            var task= new BusinessLogic();                                                               // Crucial Business Action
+            var task = new BusinessLogic();                                                               // Crucial Business Action
 
             // Act
             var ActionStatus = task.Perform(false);
@@ -101,9 +101,9 @@ namespace MutationTesting
 
 
         [Test,
-            TestCase("Cseko","dani*1Gxx",18,"Nagykorú"),
+            TestCase("Cseko", "dani*1Gxx", 18, "Nagykorú"),
             TestCase("Cseko Daniel", "C3f*dadade", 1, "Kiskorú")
-            
+
         ]
 
         public void CreateAccTest(string name, string password, int age, string agestatus)
@@ -144,12 +144,12 @@ namespace MutationTesting
         }
 
         [Test,
-            TestCase("Cseko Daniel","Px6*ffefsa",19,"Nagykorú")
+            TestCase("Cseko Daniel", "Px6*ffefsa", 19, "Nagykorú")
         ]
 
         public void TestRegAppExTest(string name, string password, int age, string agestatus)
         {
-                                    //Register no exception Test
+            //Register no exception Test
             // Arrange
             var accountServiceMock = new Mock<IManager>(MockBehavior.Strict);
             accountServiceMock
@@ -161,14 +161,14 @@ namespace MutationTesting
             // Act
             try
             {
-                var actualResult = accountController.Register(name, password,age, agestatus);
+                var actualResult = accountController.Register(name, password, age, agestatus);
                 Assert.Fail();
 
             }
-            catch (Exception ex)        
+            catch (Exception ex)
             {
                 Assert.IsInstanceOf<ApplicationException>(ex);
-                
+
             }
 
             // Assert
@@ -180,7 +180,7 @@ namespace MutationTesting
         ]
         public void TestRegAppExGeneralTest(string name, string password, int age, string agestatus)
         {
-                                        //Register "Jelszó nem megfelelő" exception Test
+            //Register "Jelszó nem megfelelő" exception Test
             // Arrange
             var accountServiceMock = new Mock<IManager>(MockBehavior.Strict);
             accountServiceMock
@@ -195,12 +195,12 @@ namespace MutationTesting
                 var actualResult = accountController.Register(name, password, age, agestatus);
                 Assert.Fail();
             }
-            catch (Exception ex)        
+            catch (Exception ex)
             {
-                if (ex.Message== "Jelszó nem megfelelő")
+                if (ex.Message == "Jelszó nem megfelelő")
                 {
                     Assert.Pass();      // got exception as expeted
-                }             
+                }
             }
 
             // Assert
@@ -250,18 +250,18 @@ namespace MutationTesting
             var bLogic = new BusinessLogic();
 
             // Act
-            Account actResult = bLogic.Manager.ModifyName(acc,newName);
+            Account actResult = bLogic.Manager.ModifyName(acc, newName);
 
             // Assert
-            Assert.AreEqual(actResult.Name,newName);
+            Assert.AreEqual(actResult.Name, newName);
         }
 
         [Test,
-            TestCase(true, "Daniel",true), 
+            TestCase(true, "Daniel", true),
             TestCase(false, "Bela", false)
         ]
 
-        public void ModifyDecision(bool wantToModify, string newName, bool willPass )
+        public void ModifyDecision(bool wantToModify, string newName, bool willPass)
         {
             // Arrange
             Account acc = new Account();
@@ -269,11 +269,11 @@ namespace MutationTesting
             acc.Age = 19;
             acc.AgeStatus = "Nagykorú";
             acc.Password = "Count94//";
-            
-            var modification = new BusinessLogic();     
+
+            var modification = new BusinessLogic();
 
             // Act
-            var modifiedAccount = modification.NameModifier(acc,wantToModify, newName);
+            var modifiedAccount = modification.NameModifier(acc, wantToModify, newName);
 
             // Assert
             if (willPass)
@@ -284,35 +284,56 @@ namespace MutationTesting
 
         }
 
-
+        [Test]
 
         public void ParityChangerTester()
         {
             // Arrange                              //the number is always 1 to change parity
             var oneAdder = new BusinessLogic();
             // Act
-            var addedOneToIt = oneAdder.ParityChanger(9);
+            var addedOneToIt = oneAdder.Manager.ParityChanger(9);
             // Assert
-            NUnit.Framework.Assert.AreEqual(addedOneToIt, 10);
+            NUnit.Framework.Assert.AreEqual(10, addedOneToIt);
 
+
+         }
+        
+
+            [Test,
+            TestCase(5)
+        ]
+        public void ParityCallTest(int num)
+        {
+            // Arrange                                              
+            var mock = new Mock<IManager>();
+            mock.Setup(p => p.ParityChanger(num));
+            var bLogic = new BusinessLogic();
+            bLogic.Manager = mock.Object;
+
+            // Act
+            bLogic.ChangeParityDecision(num,true);
+
+            // Assert
+            mock.Verify(p => p.ParityChanger(num), Times.Once);
 
         }
 
-        public void ChangeparityDecTester(int number, bool decision)
+        [Test,
+            TestCase(8)
+        ]
+        public void ParityNoCallTest(int num)
         {
-            // Arrange                              
-            var helper = new BusinessLogic();
+            // Arrange                                              
+            var mock = new Mock<IManager>();
+            mock.Setup(p => p.ParityChanger(num));
+            var bLogic = new BusinessLogic();
+            bLogic.Manager = mock.Object;
+
             // Act
-            var result = helper.ChangeParityDecision(number, decision);
+            bLogic.ChangeParityDecision(num, false);
+
             // Assert
-            if (decision)
-            {
-                NUnit.Framework.Assert.AreEqual(result, number + 1);
-            }
-            else
-            {
-                NUnit.Framework.Assert.AreEqual(result, number);
-            }
+            mock.Verify(p => p.ParityChanger(num), Times.Never);
 
         }
     }

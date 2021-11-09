@@ -111,21 +111,19 @@ namespace MyAppToTest
             }
         }
 
-        public int ParityChanger(int num)
-        {
-            return num + 1;
-        }
-
+        
         public int ChangeParityDecision(int num, bool wantToChange)
         {
             if (wantToChange)
             {
-                return ParityChanger(num);
+                
+                return Manager.ParityChanger(num);
             }
             return num;
         }
+
     }
 
 
-    
+
 }
