@@ -14,5 +14,6 @@ namespace MyAppToTest
         Account CreateAccount(Account account);
         void CrucialBusinessAction();
         Account ModifyName(Account acc, string newName);
+
     }
 }

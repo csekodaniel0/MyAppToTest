@@ -46,7 +46,7 @@ namespace MutationTesting
         public void ActionFail()
         {
             // Arrange
-            var task= new BusinessLogic();      // Crucial Business Action
+            var task= new BusinessLogic();                                                               // Crucial Business Action
 
             // Act
             var ActionStatus = task.Perform(false);
@@ -61,7 +61,7 @@ namespace MutationTesting
         public void ActionOK()
         {
             // Arrange
-            var task = new BusinessLogic();     // Crucial Business Action
+            var task = new BusinessLogic();                                                             // Crucial Business Action
 
             // Act
             var ActionStatus = task.Perform(true);
@@ -129,7 +129,7 @@ namespace MutationTesting
         [Test]
         public void CBusinessActionCall()
         {
-            // Arrange
+            // Arrange                                              --Solution for AgeCheck survived Statement mutation 
             var mock = new Mock<IManager>(MockBehavior.Strict);
             mock.Setup(p => p.CrucialBusinessAction());
             var bLogic = new BusinessLogic();
@@ -283,6 +283,37 @@ namespace MutationTesting
             else NUnit.Framework.Assert.AreNotEqual(newName, modifiedAccount.Name);
 
         }
-        //verify assert will not check the return value
+
+
+
+        public void ParityChangerTester()
+        {
+            // Arrange                              //the number is always 1 to change parity
+            var oneAdder = new BusinessLogic();
+            // Act
+            var addedOneToIt = oneAdder.ParityChanger(9);
+            // Assert
+            NUnit.Framework.Assert.AreEqual(addedOneToIt, 10);
+
+
+        }
+
+        public void ChangeparityDecTester(int number, bool decision)
+        {
+            // Arrange                              
+            var helper = new BusinessLogic();
+            // Act
+            var result = helper.ChangeParityDecision(number, decision);
+            // Assert
+            if (decision)
+            {
+                NUnit.Framework.Assert.AreEqual(result, number + 1);
+            }
+            else
+            {
+                NUnit.Framework.Assert.AreEqual(result, number);
+            }
+
+        }
     }
 }

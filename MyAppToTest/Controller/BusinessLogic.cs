@@ -37,7 +37,7 @@ namespace MyAppToTest
 
             throw new Exception("Jelszó nem megfelelő");
         }
-        public string Perform(bool b)
+        public string Perform(bool b) 
         {
             if (b)
             {
@@ -110,7 +110,20 @@ namespace MyAppToTest
                 return true;
             }
         }
-    
+
+        public int ParityChanger(int num)
+        {
+            return num + 1;
+        }
+
+        public int ChangeParityDecision(int num, bool wantToChange)
+        {
+            if (wantToChange)
+            {
+                return ParityChanger(num);
+            }
+            return num;
+        }
     }
 
 
