@@ -36,6 +36,7 @@ namespace MutationTesting
             // Arrange
             var age = new BusinessLogic();
             // Act
+            int x = 5;
             var actualAge = age.AgeCheck(18);
             // Assert
             NUnit.Framework.Assert.AreEqual("Nagykorú", actualAge);
